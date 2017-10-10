@@ -147,6 +147,10 @@ class Transport(object):
 
         session.verify = self.server_cert_validation == 'validate'
 
+        # Set CA trust path if provided.
+        if session.verify and self.ca_trust_path != None:
+             session.verify = self.ca_trust_path
+
         # configure proxies from HTTP/HTTPS_PROXY envvars
         session.trust_env = True
         settings = session.merge_environment_settings(url=self.endpoint, proxies={}, stream=None,
